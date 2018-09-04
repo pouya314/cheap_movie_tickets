@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Finder</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+  </head>
+  <body>
+    <div class="row">
+      <div class="col col-sm-0 col-md-1 col-lg-2">
+      </div>
+      <div class="col col-sm-12 col-md-9 col-lg-8">
+
+        <div class="jumbotron text-center" style="margin-bottom: 0px !important;">
+          <h3 class="display-4">Cheap Movie Ticket Finder!</h3>
+          <p class="lead">We Compare FilmWorld & CinemaWorld Prices.</p>
+          <hr class="my-4">
+          <p>Choose one of the following options:</p>
+          <button class="btn btn-primary btn-lg" role="button" id="get-tickets">
+            Display cheap tickets
+          </button> 
+          <i> OR </i>
+          <button class="btn btn-info btn-lg" role="button" id="refresh-data">
+            Refresh Data
+          </button>
+        </div>
+
+        <div class="result"></div>
+
+      </div>
+      <div class="col col-sm-0 col-md-1 col-lg-2">
+      </div>
+    </div>
+
+    {% raw %}
+    <script id="entry-template" type="text/x-handlebars-template">
+          <div class="float-right">
+            <span class="badge badge-pill badge-warning">
+              Last Updated: {{updated_at}}
+            </span>
+          </div>
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">From</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each movies}}
+                <tr>
+                  <td>{{this.Title}}</td>
+                  <td>{{this.Source}}</td>
+                  <td>${{this.Price}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+    </script>
+    {% endraw %}
+
+
+
+    <!-- JS Scripts: -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script type="text/javascript">var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+    <script src="{{ url_for('static', filename='js/index.js') }}" charset="utf-8"></script>
+  </body>
+</html>
